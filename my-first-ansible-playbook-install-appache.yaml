@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: "Install Apapche Web Server on  Ubuntu host server"
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+    - name: Update all packages to their latest version
+      ansible.builtin.apt:
+        name: "*"
+        state: latest    
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: /mnt/d/Learning/web/html_web_page/gym/
+        dest: /var/www/html/
+        owner: anoop
+        group: anoop
+        mode: '0644'
