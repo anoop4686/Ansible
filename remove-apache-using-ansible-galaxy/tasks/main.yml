@@ -1,0 +1,20 @@
+---
+# tasks file for custom-role
+- name: "Install Apapche Web Server on  Ubuntu host server"
+  ansible.builtin.apt:
+    name: apache2
+    state: absent
+- name: Remove Test user
+  ansible.builtin.user:
+    name: test
+    state: absent
+    remove: yes
+- name: Remove Nisha user
+  ansible.builtin.user:
+    name: nisha
+    state: absent
+    remove: yes
+- name: Remove file (delete file)
+  ansible.builtin.file:
+    path: /var/www
+    state: absent
