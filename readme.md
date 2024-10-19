@@ -28,3 +28,23 @@ Additional Step for Windows
 Control Panel > Windows turn On and Off > Linux Subsystem
 ```
 2. Install WSL over Linux
+```
+wsl -l -o 
+```
+```
+wsl - - install -d Ubuntu-22.04
+```
+3. Login Linux and follow below command
+```
+sudo apt install software-properties-common
+```
+```
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+```
+```
+sudo apt install ansible
+```
+4. Verify ansible version
+```
+ansible --version
+```
