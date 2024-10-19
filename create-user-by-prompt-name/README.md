@@ -1,12 +1,10 @@
 Role Name
 =========
-create-user-by-prompt-name
+Create-user-by-prompt-name
 
 About this role: 
 ------------
-This role is used to a custom create user
-
-You have to enter you username and Password
+This role is used for custom a user with password by entering own.
 
 Supporting libary install on your control mode
 -----------------
