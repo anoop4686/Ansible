@@ -22,6 +22,7 @@ Install and manage your Vaultwarden instances using Ansible.
 
 Installation
 ------------
-```Enable Linux Subsystem
+1. Enable Linux Subsystem
+```
 Control Panel > Windows turn On and Off > Linux Subsystem
 ```
