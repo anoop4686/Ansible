@@ -20,5 +20,8 @@ Idempotent: It ensures that running the same script multiple times won’t chang
 
 Install and manage your Vaultwarden instances using Ansible.
 
-Requirements
+Installation
 ------------
+```Enable Linux Subsystem
+Control Panel > Windows turn On and Off > Linux Subsystem
+```
