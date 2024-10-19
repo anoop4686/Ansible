@@ -18,8 +18,17 @@ In var folder I have define
 
 Initilize the repo
 ---------------
+```
 ansible-playbook role init create-user-by-prompt-name
+```
 
 Run the Repo
 --------------------
+```
 Ansible-playbook create-user-by-prompt-name/create-user.yaml
+```
+
+Version:
+```
+version 2
+```
