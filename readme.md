@@ -1,13 +1,18 @@
-ansible-role-vaultwarden
+Ansible Repo
 =========
-
-[![Lint and Test](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AAnsible_Logo.png&psig=AOvVaw2wDUmsPdr6-pyg6cG41sQC&ust=1729450923903000&source=images&cd=vfe&opi=89978449&ved=0CBcQjhxqFwoTCMC-0PGQm4kDFQAAAAAdAAAAABAE)]
-
-![image description](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AAnsible_Logo.png&psig=AOvVaw2wDUmsPdr6-pyg6cG41sQC&ust=1729450923903000&source=images&cd=vfe&opi=89978449&ved=0CBcQjhxqFwoTCMC-0PGQm4kDFQAAAAAdAAAAABAE))
 
 ![screenshot](Ansible_Logo.png)
 
+About Ansible
+=============
 
+Ansible is an open-source automation tool that helps you manage and configure your IT infrastructure. Think of it as a way to automate repetitive tasks like setting up servers, deploying applications, and managing network devices.
+
+Here are some key points about Ansible:
+
+Simple Language: Ansible uses YAML, a human-readable language, to write scripts called playbooks.
+Agentless: You don’t need to install any software on the machines you’re managing. Ansible uses SSH to communicate with them.
+Idempotent: It ensures that running the same script multiple times won’t change the system if it’s already in the desired state.
 
 Install and manage your Vaultwarden instances using Ansible.
 
