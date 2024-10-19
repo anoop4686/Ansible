@@ -14,7 +14,7 @@ pip install passlib
 
 Define the interpreter
 -------------
-In Var file I have define
+In var folder I have define
 
 Initilize the repo
 ---------------
