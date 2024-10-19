@@ -1,7 +1,7 @@
 ansible-role-vaultwarden
 =========
 
-[![Lint and Test](https://www.google.com/imgres?q=ansible&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F2%2F24%2FAnsible_logo.svg&imgrefurl=https%3A%2F%2Fen.m.wikipedia.org%2Fwiki%2FFile%3AAnsible_logo.svg&docid=VNPBl2xvOEzAZM&tbnid=OpQeMxlTeAJE9M&vet=12ahUKEwiQ0dOykJuJAxUmUfUHHdcVFXMQM3oECBoQAA..i&w=256&h=315&hcb=2&ved=2ahUKEwiQ0dOykJuJAxUmUfUHHdcVFXMQM3oECBoQAA)
+[![Lint and Test](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AAnsible_Logo.png&psig=AOvVaw2wDUmsPdr6-pyg6cG41sQC&ust=1729450923903000&source=images&cd=vfe&opi=89978449&ved=0CBcQjhxqFwoTCMC-0PGQm4kDFQAAAAAdAAAAABAE)]
 
 Install and manage your Vaultwarden instances using Ansible.
 
