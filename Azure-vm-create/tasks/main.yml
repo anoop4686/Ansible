@@ -1,0 +1,10 @@
+---
+- name: Create a resource group
+  azure_rm_resourcegroup:
+    name: testing
+    location: Central India
+    tags:
+      owner: Anoop Maurya
+      email: xyz@somedomain.com
+      phone: 1234567
+

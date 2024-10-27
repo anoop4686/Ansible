@@ -1,0 +1,9 @@
+# ---
+# - hosts: localhost
+#   roles:
+#     - Azure-vm-create
+---
+- hosts: localhost
+  become: true
+  roles:
+    - Azure-vm-create
