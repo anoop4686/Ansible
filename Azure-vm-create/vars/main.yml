@@ -1,5 +1,0 @@
----
-# vars file for Azure-vm-create
-azure_client_id: e2aefd40-eda4-43e6-b5c2-5b4515a3cfb0
-azure_secret: 5ff21ba8-3dce-44bc-821a-6be05753db30
-azure_tenant: a3616afc-f052-4fc1-a9e6-c9134f8c70d4

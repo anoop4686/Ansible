@@ -1,0 +1,13 @@
+- name: Create a user with prompted username and password
+  hosts: all
+  become: yes
+  roles:
+    - create-user-by-prompt-name
+  vars_prompt:
+    - name: "username"
+      prompt: "Enter the username"
+      private: no
+
+    - name: "password"
+      prompt: "Enter the password"
+      private: yes
