@@ -1,0 +1,14 @@
+---
+# defaults file for create-vm-azure
+Resources_group_name: "Ansible-Resources"
+location: "centralindia"
+subscription_id: 4ed6c694-a239-487b-ad0a-572d5a37a041
+name: "Ansible-script"
+dns-server-name: 8.8.8.8
+vm_name: "Ansible-vm"
+username: "test"
+password: "test@9876543"
+os_image: 0001-com-ubuntu-server-jammy
+publisher: "Canonical"
+sku: 22_04-lts-gen2
+version: "latest"
