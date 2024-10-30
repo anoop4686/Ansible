@@ -1,0 +1,38 @@
+# tasks file for create-VM-public-IP
+---
+- name: Creating Ansible resource group
+  azure_rm_resourcegroup:
+    name: "{{resource_group}}"
+    location: "{{location}}"
+    append_tags: 1
+    log_mode: "Anoop"
+    state: present
+    tags:
+      Name: "testing"
+      owner: "Name"
+      phone: "1234"
+      delete: "never"
+
+- name: Create a virtual network
+  azure_rm_virtualnetwork:
+    resource_group: "{{resource_group}}"
+    name: "{{VirtualNetwork_name}}"
+    address_prefixes_cidr:
+      - 192.168.0.0/16
+    dns_servers:
+      - 8.8.8.8
+      - 127.0.0.1
+    tags:
+      name: testing
+      delete: on-exit
+
+- name: Create a subnet for virtual Network
+  azure_rm_subnet:
+    resource_group: "{{resource_group}}"
+    virtual_network_name: "{{VirtualNetwork_name}}"
+    name: "{{subnet_name_1}}"
+    address_prefix_cidr: 
+      - 192.168.1.0/24
+    name: "{{subnet_name_2}}"
+    address_prefix_cidr: 
+      - 192.168.1.0/24

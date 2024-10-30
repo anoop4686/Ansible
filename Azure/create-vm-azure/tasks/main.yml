@@ -57,7 +57,7 @@
     resource_group: "{{Resources_group_name}}"
     name: "{{name}}"
     admin_username: anoop
-    admin_password: Anoopmaurya@123
+    admin_password: qwertyuioposs
     vm_size: Standard_F2s_v2
     image:
       architecture": x64

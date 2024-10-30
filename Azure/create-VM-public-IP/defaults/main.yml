@@ -1,0 +1,6 @@
+---
+resource_group: "Ansible-script-group"
+location: "westus"
+VirtualNetwork_name: "Ansible-Vnet-1"
+subnet_name_1: "Ansible-subnet-1"
+subnet_name_2: "Ansible-subnet-2"
