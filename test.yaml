@@ -1,16 +1,16 @@
 ---
 - name: create resources to build a VM
   hosts: localhost
-  tasks:
-  - name: Create a resource group
-  azure_rm_resourcegroup:
-    subscription_id: "{{subscription_id}}"
-    state: present
-    name: "{{Resources_group_name}}"
-    location: "{{location}}"
-    tags:
-      owner: "Anoop Maurya"
-      phone: XXXXXXXXXXXXX
+  # tasks:
+  # - name: Create a resource group
+  # azure_rm_resourcegroup:
+  #   subscription_id: "{{subscription_id}}"
+  #   state: present
+  #   name: "{{Resources_group_name}}"
+  #   location: "{{location}}"
+  #   tags:
+  #     owner: "Anoop Maurya"
+  #     phone: XXXXXXXXXXXXX
       email: xyz@domain.com
 
 - name: Create a virtual network
