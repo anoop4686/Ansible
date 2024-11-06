@@ -1,0 +1,22 @@
+---
+- name: Create virtual machine
+  azure_rm_virtualmachine:
+    resource_group: "{{resource_group}}"
+    name: "VM2"
+    vm_size: Standard_B2ms
+    managed_disk_type: Premium_LRS
+    os_disk_size_gb: 45
+    admin_username: "{{username}}"
+    admin_password: "{{password}}"
+    network_interface_names: "{{NIC_card_name}}"
+    image:
+      offer: UbuntuServer
+      publisher: Canonical
+      sku: 18.04-LTS
+      version: latest
+    virtual_network_name: "{{VirtualNetwork_name}}"
+    subnet_name: "{{subnet_name_2}}"
+    ssh_password_enabled: yes
+    short_hostname: "Asible-vm-testing"
+
+     

@@ -1,0 +1,11 @@
+---
+- name: Remove the user 
+  ansible.builtin.user:
+    name: "{{ user_name }}" # username define in default folder.
+    state: absent
+    remove: yes
+- name: Remove directory
+  ansible.builtin.file:
+    path: "/home/{{user_name}}"
+    state: absent
+    #recurse: yes

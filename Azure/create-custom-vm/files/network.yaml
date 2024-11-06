@@ -1,0 +1,60 @@
+---
+- name: Create a virtual network
+  azure_rm_virtualnetwork:
+    state: "{{state}}"
+    resource_group: "{{resource_group}}"
+    name: "{{VirtualNetwork_name}}"
+    address_prefixes_cidr:
+      - 192.168.0.0/16
+    dns_servers:
+      - 8.8.8.8
+      - 127.0.0.1
+    tags:
+      Name: "{{tage_name}}"
+      owner: "{{tag_owner}}"
+      phone: "{{tag_phone}}"
+      email: "{{tag_email}}"
+  
+
+- name: Creating a subnet 1 for virtual Network
+  azure_rm_subnet:
+    state: "{{state}}"
+    resource_group: "{{resource_group}}"
+    virtual_network_name: "{{VirtualNetwork_name}}"
+    name: "{{subnet_name_1}}"
+    address_prefix_cidr: "192.168.1.0/24"
+    security_group: "{{nsg_name}}"
+
+- name: Creating a subnet 2 for virtual Network
+  azure_rm_subnet:
+    state: "{{state}}"
+    resource_group: "{{resource_group}}"
+    virtual_network_name: "{{VirtualNetwork_name}}"
+    name: "{{subnet_name_2}}"
+    address_prefix_cidr: "192.168.2.0/24"
+    security_group: "{{nsg_name}}"
+
+- name: Create a public ip address
+  azure_rm_publicipaddress:
+    resource_group: "{{resource_group}}"
+    state: "{{state}}"
+    name: "{{public_ip_Name}}"
+    allocation_method: Dynamic
+    state: "{{state}}"
+  register: output_ip_address
+
+- name: Output public IP
+  debug:
+    msg: "The public IP is {{output_ip_address.state.ip_address}}"
+  
+- name: Create a network interface
+  azure_rm_networkinterface:
+    name: "{{NIC_card_name}}"
+    resource_group: "{{resource_group}}"
+    virtual_network: "{{VirtualNetwork_name}}"
+    subnet_name: "{{subnet_name_2}}"
+    security_group: "{{nsg_name}}"
+    ip_configurations:
+      - name: ipconfig1
+        public_ip_address_name: "{{public_ip_Name}}"
+        primary: true

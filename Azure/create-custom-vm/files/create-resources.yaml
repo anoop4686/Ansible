@@ -1,0 +1,14 @@
+---
+- name: Creating Ansible resource group
+  azure_rm_resourcegroup:
+    name: "{{resource_group}}"
+    location: "{{location}}"
+    append_tags: 1
+    log_mode: "Anoop"
+    state: "{{state}}"
+    tags:
+      Name: "{{tage_name}}"
+      owner: "{{tag_owner}}"
+      phone: "{{tag_phone}}"
+      email: "{{tag_email}}"
+  

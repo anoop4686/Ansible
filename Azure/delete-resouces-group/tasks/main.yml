@@ -1,0 +1,7 @@
+---
+# tasks file for delete-resouces-group
+- name: Delete resource group including resources it contains
+  azure_rm_resourcegroup:
+    name: "{{name}}"
+    force_delete_nonempty: true
+    state: absent

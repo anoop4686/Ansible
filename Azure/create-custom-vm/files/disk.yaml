@@ -1,0 +1,12 @@
+- name: Create managed disk
+  azure_rm_manageddisk:
+    name: Disk1
+    location: "{{location}}"
+    resource_group: "{{resource_group}}"
+    create_option: "empty"
+    disk_size_gb: 64
+
+    # data_disks:
+    #   caching: "ReadWrite"
+    #   disk_size_gb: 64
+    #   managed_disk_type: "StandardSSD_LRS"

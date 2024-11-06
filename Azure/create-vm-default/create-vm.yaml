@@ -1,0 +1,5 @@
+---
+- name: create resources to build a VM
+  hosts: localhost
+  roles:
+    - create-vm-default

@@ -1,0 +1,62 @@
+---
+- name: Create Azure VM with custom NIC
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  tasks:
+    # - name: Create resource group
+    #   azure_rm_resourcegroup:
+    #     name: myResourceGroup10
+    #     location: centralus
+
+    # - name: Create virtual network
+    #   azure_rm_virtualnetwork:
+    #     resource_group: myResourceGroup10
+    #     name: myVnet
+    #     address_prefixes: 10.0.0.0/16
+
+    # - name: Create subnet
+    #   azure_rm_subnet:
+    #     resource_group: myResourceGroup10
+    #     name: mySubnet
+    #     address_prefix: 10.0.1.0/24
+    #     virtual_network: myVnet
+
+    # - name: Create network interface
+    #   azure_rm_networkinterface:
+    #     resource_group: myResourceGroup10
+    #     name: myNic
+    #     virtual_network: myVnet
+    #     subnet: mySubnet
+
+    # - name: Create public IP
+    #   azure_rm_publicipaddress:
+    #     resource_group: myResourceGroup10
+    #     allocation_method: Dynamic
+    #     name: myPublicIP
+
+    # - name: Create managed disk
+    #   azure_rm_manageddisk:
+    #     name: Disk1
+    #     location: centralus
+    #     resource_group: myResourceGroup10
+    #     disk_size_gb: 40
+
+    - name: Create virtual machine
+      azure_rm_virtualmachine:
+        resource_group: myResourceGroup10
+        name: myVM
+        vm_size: Standard_B2ms
+        admin_username: azureuser
+        admin_password: Password1234!
+        network_interface_names: myNic
+        image:
+          offer: UbuntuServer
+          publisher: Canonical
+          sku: 18.04-LTS
+          version: latest
+        os_disk_name: Disk1
+        os_disk_size_gb: 128
+        os_disk_caching: ReadWrite
+        managed_disk_type: Standard_LRS
+       # create_option: attach

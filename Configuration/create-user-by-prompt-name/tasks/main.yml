@@ -1,0 +1,7 @@
+---
+  - name: Create user
+    ansible.builtin.user:
+      name: "{{ username }}"
+      password: "{{ password | password_hash('sha512') }}"
+      state: present
+

@@ -1,0 +1,32 @@
+---
+- name: Creating security group for Ansible
+  azure_rm_securitygroup:
+    resource_group: "{{resource_group}}"
+    name: "{{nsg_name}}"
+    purge_rules: true
+    state: "{{state}}"
+    # subnets: "{{subnet_name_2}}"
+    rules:
+      - name: 'AllowSSH'
+        protocol: Tcp
+        destination_port_range: 22
+        access: Allow
+        priority: 100
+        direction: Inbound
+      - name: 'DenySSH'
+        protocol: Tcp
+        source_address_prefix: 
+          - 192.168.168.0/24
+        destination_address_prefix: 
+          - 192.168.168.0/24
+        destination_port_range: 22
+        access: Deny
+        priority: 101
+        direction: Inbound
+      - name: 'AllowMultiplePorts'
+        protocol: Tcp
+        destination_port_range:
+          - 80
+          - 443
+        access: Allow
+        priority: 102  

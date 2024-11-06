@@ -1,0 +1,9 @@
+---
+- name: Fetch all human users and server IP address, save to CSV
+  hosts: all
+  become: yes
+  gather_facts: yes
+  roles:
+    - fetch-user
+
+  

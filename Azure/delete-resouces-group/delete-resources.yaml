@@ -1,0 +1,5 @@
+---
+- name: "Deleting resouces group"
+  hosts: localhost
+  roles:
+    - delete-resouces-group

@@ -1,0 +1,70 @@
+# tasks file for create-vm-default
+
+# tasks file for create-vm-azure
+# Variable are define in defauls
+# az vm image list
+
+---
+- name: Create a resource group
+  azure_rm_resourcegroup:
+    subscription_id: "{{subscription_id}}"
+    state: present
+    name: "{{Resources_group_name}}"
+    location: "{{location}}"
+    tags:
+      owner: "Anoop Maurya"
+      phone: XXXXXXXXXXXXX
+      email: xyz@domain.com
+
+- name: Create a virtual network
+  azure_rm_virtualnetwork:
+    resource_group: "{{Resources_group_name}}"
+    name: "{{name}}"
+    address_prefixes_cidr:
+      - 192.168.0.0/16
+    dns_servers:
+      - 8.8.8.8
+    tags:
+      testing: testing
+      delete: on-exit
+
+- name: Create a securiy group
+  azure_rm_securitygroup:
+    name: "{{name}}"
+    resource_group: "{{Resources_group_name}}"
+    rules:
+      - name: SSH
+        protocol: Tcp
+        destination_port_range: 22
+        access: Allow
+        priority: 105
+        direction: Inbound
+      - name: ICMP
+        protocol: Icmp
+        priority: 106
+
+- name: Create a subnet
+  azure_rm_subnet:
+    resource_group: "{{Resources_group_name}}"
+    virtual_network_name: "{{name}}"
+    name: mySubnet
+    address_prefix_cidr: "192.168.1.0/24"
+    address_prefix_cidr: "192.168.2.0/24"
+    security_group:
+      name: "{{name}}"
+      resource_group: "{{Resources_group_name}}"
+
+- name: Create VM with defaults
+  azure_rm_virtualmachine:
+    resource_group: "{{Resources_group_name}}"
+    name: "{{name}}"
+    admin_username: anoop
+    admin_password: Test@test123
+    vm_size: Standard_F2s_v2
+    image:
+      architecture: x64
+      offer: ubuntu-24_04-lts
+      publisher: Canonical
+      sku: 'server'
+      version: latest
+    managed_disk_type: Standard_LRS 

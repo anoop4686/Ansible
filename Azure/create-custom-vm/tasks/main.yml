@@ -1,0 +1,28 @@
+# tasks file for create-VM-public-IP
+# configuration file are link into files directory
+
+---
+
+- name: Creating Resouces Group for VM
+  include_tasks: 
+    file: files/create-resources.yaml
+
+- name: Create NSG rules for control traffic
+  include_tasks: 
+    file: files/NSG-rules.yaml 
+
+- name: Creating Network and subnet for VM
+  include_tasks: 
+    file: files/network.yaml
+
+- name: Creating Disk
+  include_tasks: 
+    file: files/disk.yaml
+
+- name: Create VM 
+  include_tasks: 
+    file: files/create_VM.yaml
+
+    
+
+   

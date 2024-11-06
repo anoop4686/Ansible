@@ -1,0 +1,32 @@
+---
+# tasks file for fetch-user
+    - name: List all users
+      ansible.builtin.command: "getent passwd"
+      register: users_list
+
+    - name: Filter human users
+      set_fact:
+        human_users: "{{ users_list.stdout_lines | select('match', '^([^:]+):[^:]*:[1-9][0-9]{3,}:') | map('regex_replace', '^([^:]+):.*', '\\1') | list }}"
+
+    - name: Get server IP address
+      set_fact:
+        server_ip: "{{ ansible_default_ipv4.address }}"
+
+    - name: Prepare CSV content
+      set_fact:
+        csv_content: |
+          User,Server IP
+          {% for user in human_users %}
+          {{ user }} {{ server_ip }}
+          {% endfor %}
+
+    - name: Save CSV to file on remote server
+      ansible.builtin.copy:
+        content: "{{ csv_content }}"
+        dest: "/tmp/human_users_{{ inventory_hostname }}.csv"
+
+    - name: Fetch CSV file to local system
+      ansible.builtin.fetch:
+        src: "/tmp/human_users_{{ inventory_hostname }}.csv"
+        dest: "./human_users_{{ inventory_hostname }}.csv"
+        flat: yes

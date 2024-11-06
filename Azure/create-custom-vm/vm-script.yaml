@@ -1,0 +1,5 @@
+---
+- name: creating VM with Azure cloud 
+  hosts: localhost
+  roles:
+    - create-custom-vm

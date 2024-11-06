@@ -1,0 +1,7 @@
+---
+# defaults file for create-vm-default
+
+subscription_id: "4ed6c694-a239-487b-ad0a-572d5a37a041"
+Resources_group_name: "Ansible-script"
+location: "westus"
+name: "Ansible-VM"

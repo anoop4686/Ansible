@@ -1,0 +1,4 @@
+---
+# vars file for create-user-by-prompt-name
+# install python package : pip install passlib
+ansible_python_interpreter: /usr/bin/python3
