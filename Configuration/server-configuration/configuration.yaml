@@ -1,0 +1,6 @@
+---
+- name: Server configuration
+  hosts: all
+  become: true
+  roles:
+    - server-configuration

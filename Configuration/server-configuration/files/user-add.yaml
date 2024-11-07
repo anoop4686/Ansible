@@ -1,0 +1,13 @@
+- name: Add the user test
+  ansible.builtin.user:
+    name: test
+    comment: test user
+    group: sudo
+    create_home: yes
+    shell: /bin/bash
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+    password_expire_max: 90
+    password_expire_min: 60
+    password_expire_warn: 30

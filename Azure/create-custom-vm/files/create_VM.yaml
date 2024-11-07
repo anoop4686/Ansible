@@ -5,7 +5,7 @@
     name: "VM2"
     vm_size: Standard_B2ms
     managed_disk_type: Premium_LRS
-    os_disk_size_gb: 45
+    os_disk_size_gb: "{{os-disk-size}}"
     admin_username: "{{username}}"
     admin_password: "{{password}}"
     network_interface_names: "{{NIC_card_name}}"

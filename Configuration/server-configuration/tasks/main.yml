@@ -1,0 +1,18 @@
+---
+# tasks file for server-configuration
+- name: Server updating
+  include_tasks: 
+    file: files/server-update.yaml
+
+- name: New User Adding
+  include_tasks: 
+    file: files/user-add.yaml
+
+- name: Application Setup
+  include_tasks: 
+    file: files/app-setup.yaml
+
+- name: Reboot
+  include_tasks: 
+    file: files/reboot.yaml
+
