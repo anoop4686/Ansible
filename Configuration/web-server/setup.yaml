@@ -1,0 +1,10 @@
+---
+- name: "Webserver-Configuration"
+  hosts: all
+  become: yes 
+  become_method: sudo 
+  become_user: root
+  vars: 
+    ansible_become_password: 1234
+  roles:
+    - web-server

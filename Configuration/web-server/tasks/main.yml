@@ -1,0 +1,20 @@
+---
+# tasks file for web-server
+
+- name: Copy Docker file with owner and permissions
+  copy:
+    src: /mnt/d/Git-Repo/Docker/apache-web-server
+    dest: /root/
+    owner: root
+    group: root
+    mode: '0766'
+
+- name: Docker Image build and setup
+  ansible.builtin.shell:
+    chdir: /root/apache-web-server
+    cmd:  docker build -t anoop4686/web_server:v1 .
+         
+- name: Docker Image setup
+  ansible.builtin.shell:
+    chdir: /root/apache-web-server
+    cmd:  docker run --name web1 -it -d -p 80:8085 anoop4686/web_server:v1

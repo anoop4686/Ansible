@@ -3,34 +3,33 @@
   ansible.builtin.hostname:
     name: Web-server
 
-- name: Install required system packages
-  apt:
-    pkg:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - software-properties-common
-      - python3-pip
-      - virtualenv
-      - python3-setuptools
-    state: latest
-    update_cache: true
+- name: Print current working directory
+  ansible.builtin.command: pwd
+  register: result
 
-- name: Add Docker GPG apt Key
-  apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
+- name: Show result
+  ansible.builtin.debug:
+    var: result.stdout
 
-- name: Add Docker Repository
-  apt_repository:
-    repo: deb https://download.docker.com/linux/ubuntu focal stable
-    state: present
+- name: Print current working directory
+  ansible.builtin.command: ls -ll /home/anoop
+  register: result2
 
-- name: Update apt and install docker-ce
-  apt:
-    name: docker-ce
-    state: latest
-    update_cache: true
+- name: Show result2
+  ansible.builtin.debug:
+    var: result2.stdout
+
+- name: Copy Docker file with owner and permissions
+  copy:
+    src: /mnt/d/Git-Repo/Ansible/Configuration/server-configuration/files/docker-setup.sh
+    dest: /root/docker-setup.sh
+    owner: root
+    group: root
+    mode: '0766'
+
+
+- name: Docker install throgh shell script
+  ansible.builtin.shell: ~/docker-setup.sh >> /var/log/docker-setup.log
 
 - name: Change file ownership, group and permissions
   ansible.builtin.file:
@@ -40,7 +39,5 @@
     mode: '0666'
 
 - name: Time and Date
-  ansible.builtin.shell: sudo apt update && \
-                         sudo apt install ntp -y && \
-                         sudo systemctl restart ntp && \
+  ansible.builtin.shell: sudo systemctl restart ntp && \
                          sudo timedatectl set-timezone Asia/Kolkata 

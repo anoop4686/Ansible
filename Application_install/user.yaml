@@ -1,0 +1,33 @@
+# Install Package
+# sudo apt install python3-pip
+# pip3 install passlib
+
+---
+- name: Add multiple users to Ubuntu 22.04
+  hosts: all
+  become: yes
+  vars:
+    users:
+      - name: MF-1004567889
+      - name: MF-1004567888
+      - name: MF-1004567887
+      - name: MF-1004567886
+
+  tasks:
+    - name: Create users
+      user:
+        name: "{{ item.name }}"
+        password: "{{ 'Anoop@123' | password_hash('sha512') }}"
+        shell: /bin/bash
+        state: present
+        createhome: yes
+      loop: "{{ users }}"
+
+    - name: XRDP file path
+      copy:
+        content: "xfce4-session"
+        dest: "/home/{{ item.name }}/.xsession"
+        owner: "{{ item.name }}"
+        group: "{{ item.name }}"
+        mode: '0644'
+      loop: "{{ users }}"

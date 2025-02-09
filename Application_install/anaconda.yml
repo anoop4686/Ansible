@@ -1,0 +1,53 @@
+---
+- name: Install Anaconda for all users
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install dependencies
+      apt:
+        name:
+          - wget
+          - bzip2
+        state: present
+        update_cache: yes
+
+    - name: Fetch latest Anaconda installer URL
+      uri:
+        url: https://repo.anaconda.com/archive/
+        return_content: yes
+      register: anaconda_index
+
+    - name: Extract latest Anaconda installer URL
+      set_fact:
+        anaconda_url: "https://repo.anaconda.com/archive/{{ anaconda_index.content | regex_search('Anaconda3-[0-9.]+-Linux-x86_64.sh') }}"
+
+    - name: Download Anaconda installer
+      get_url:
+        url: "{{ anaconda_url }}"
+        dest: /tmp/anaconda.sh
+        mode: '0755'
+
+    - name: Install Anaconda to /opt/anaconda
+      command:
+        cmd: bash /tmp/anaconda.sh -b -p /opt/anaconda
+        creates: /opt/anaconda
+
+    - name: Set up global environment variables
+      copy:
+        dest: /etc/profile.d/anaconda.sh
+        content: |
+          export PATH="/opt/anaconda/bin:$PATH"
+        mode: '0755'
+
+    - name: Apply environment variables
+      shell: source /etc/profile.d/anaconda.sh
+      args:
+        executable: /bin/bash
+
+    - name: Verify Anaconda installation
+      command: /opt/anaconda/bin/conda --version
+      register: conda_version
+
+    - name: Display installed Anaconda version
+      debug:
+        msg: "Anaconda installed successfully: {{ conda_version.stdout }}"

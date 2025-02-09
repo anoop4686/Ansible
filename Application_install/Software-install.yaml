@@ -1,0 +1,90 @@
+---
+- name: Install software on Ubuntu
+  hosts: all
+  become: yes
+  vars:
+    users:
+    current_user: "{{ ansible_env.USER }}"
+    anaconda_installer: "Anaconda3-2023.07-1-Linux-x86_64.sh"
+    anaconda_url: "https://repo.anaconda.com/archive/{{ anaconda_installer }}"
+    anaconda_install_path: "/opt/anaconda3"
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install dependencies for adding repositories
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - apt-transport-https
+        - software-properties-common
+        - wget
+
+    - name: Add Microsoft GPG key for VSCode
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+
+    - name: Add VSCode repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+        state: present
+
+    - name: Add LibreOffice PPA
+      apt_repository:
+        repo: ppa:libreoffice/ppa
+        state: present
+
+    - name: Install software
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - code
+        - libreoffice
+        - firefox
+        - vim
+        - nano
+        - wget
+        - zip
+        - unzip
+        - net-tools
+  
+    - name: Install XRDP
+      apt:
+        name: xrdp
+        state: present
+        update_cache: yes
+
+    - name: Install Xfce4 and related packages
+      apt:
+        name:
+          - xfce4
+          - xfce4-terminal
+          - xrdp
+        state: present
+
+    - name: Set Xfce4 as the default session for XRDP
+      copy:
+        dest: "/home/{{ current_user }}/.xsession"
+        content: "xfce4-session"
+        owner: "{{ current_user }}"
+        group: "{{ current_user }}"
+        mode: '0644'
+      when: current_user != "root"
+
+    - name: Restart XRDP service
+      systemd:
+        name: xrdp
+        state: restarted
+        enabled: yes
+
+    - name: Add current user to xrdp group
+      user:
+        name: "{{ current_user }}"
+        groups: xrdp
+        append: yes
+      when: current_user != "root"

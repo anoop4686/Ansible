@@ -1,0 +1,65 @@
+---
+- name: Add multiple users to Ubuntu 22.04 and install Anaconda
+  hosts: all
+  become: yes
+  vars:
+    users:
+      - name: user1
+      - name: user2
+    anaconda_installer: "Anaconda3-2023.07-1-Linux-x86_64.sh"
+    anaconda_url: "https://repo.anaconda.com/archive/{{ anaconda_installer }}"
+    anaconda_install_path: "/opt/anaconda3"
+
+  tasks:
+    - name: Create users
+      user:
+        name: "{{ item.name }}"
+        password: "Welcome@2025"
+        shell: /bin/bash
+        state: present
+        createhome: yes
+      loop: "{{ users }}"
+
+    - name: Add SSH key for users
+      authorized_key:
+        user: "{{ item.name }}"
+        key: "ssh-rsa AAAAB3NzaC1yc2EAAAABIw... {{ item.name }}@hostname"
+        state: present
+      loop: "{{ users }}"
+  
+    - name: XRDP file path
+      copy:
+        content: "xfce4-session"
+        dest: "/home/{{ item.name }}/.xsession"
+        owner: "{{ item.name }}"
+        group: "{{ item.name }}"
+        mode: '0644'
+      loop: "{{ users }}"  
+
+    - name: Download Anaconda installer
+      get_url:
+        url: "{{ anaconda_url }}"
+        dest: "/tmp/{{ anaconda_installer }}"
+        mode: '0755'
+
+    - name: Ensure Anaconda installer is executable
+      file:
+        path: "/tmp/{{ anaconda_installer }}"
+        mode: '0755'
+
+    - name: Install Anaconda with logging
+      shell: "bash -c '/tmp/{{ anaconda_installer }} -b -p {{ anaconda_install_path }} > /tmp/anaconda_install.log 2>&1'"
+      args:
+        creates: "{{ anaconda_install_path }}"
+
+    - name: Ensure Anaconda profile script exists
+      file:
+        path: "/etc/profile.d/anaconda.sh"
+        state: touch
+        mode: '0644'
+
+    - name: Add Anaconda to PATH for all users
+      lineinfile:
+        path: "/etc/profile.d/anaconda.sh"
+        line: "export PATH={{ anaconda_install_path }}/bin:$PATH"
+        create: yes
